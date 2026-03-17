@@ -1,0 +1,27 @@
+CACHE MANIFEST
+# rev 19
+
+/design/style.css
+favicon.ico
+
+/source/Board.js
+/source/Display.js
+/source/HighScores.js
+/source/Keyboard.js
+/source/Level.js
+/source/Score.js
+/source/Tetrimino.js
+/source/Tetriminos.js
+utils/Utils.js
+utils/Storage.js
+utils/Sounds.js
+
+/fonts/agencyb.ttf
+/fonts/agencyr.ttf
+
+/audio/crash.mp3
+/audio/drop.mp3
+/audio/end.mp3
+/audio/line.mp3
+/audio/pause.mp3
+/audio/rotate.mp3
