@@ -158,7 +158,7 @@ a:hover {
 }
     .messages .text {
         position: absolute;
-        top: 4em;
+        top: 0em;
         left: 0;
         right: 0;
         height: 8em;
@@ -182,7 +182,7 @@ a:hover {
     }
     .messages .text p {
         position: absolute;
-        top: 4.5em;
+        top: 3.0em;
         left: 0;
         right: 0;
         text-align: center;
@@ -190,7 +190,7 @@ a:hover {
         font-family: "Agency FB", "Trebuchet MS", sans-serif;
         line-height: 1.2em;
         letter-spacing: 0.05em;
-        font-size: 0.9em;
+        font-size: 1.25em;
     }
 
 
@@ -201,7 +201,7 @@ a:hover {
 .levels {
     display: none;
     position: absolute;
-    top: 8em;
+    top: 5.5em;
     left: 1.5em;
     right: 1.5em;
     min-height: 2.6em;
@@ -265,7 +265,7 @@ a:hover {
     line-height: 1.1em;
 }
     .levels ul {
-        top: 4.9em;
+        top: 5.5em;
         font-size: 0.8em;
         display: flex;
         flex-direction: column;
@@ -306,7 +306,7 @@ a:hover {
 .input {
     display: none;
     position: absolute;
-    top: 6em;
+    top: 6.0em;
     right: 0;
     left: 0;
     text-align: center;
@@ -329,7 +329,7 @@ a:hover {
 
 .restart {
     position: absolute;
-    top: 4em;
+    top: 4.0em;
     left: 2.5em;
 }
 
