@@ -329,8 +329,31 @@ a:hover {
 
 .restart {
     position: absolute;
-    top: 4.0em;
+    top: 6.1em;
     left: 2.5em;
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    background: rgba(14, 20, 34, 0.9);
+    border: 0.14em solid var(--edge);
+    border-radius: 0.4em;
+    color: #f3f7ff;
+    box-shadow: inset 0 0 0.4em rgba(56, 242, 194, 0.12);
+}
+.reward {
+    position: absolute;
+    top: 4.4em;
+    left: 2.5em;
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    background: rgba(14, 20, 34, 0.9);
+    border: 0.14em solid var(--edge);
+    border-radius: 0.4em;
+    color: #f3f7ff;
+    box-shadow: inset 0 0 0.4em rgba(56, 242, 194, 0.12);
+}
+.reward.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 
@@ -345,33 +368,65 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.1em;
 }
-    .scores .titles,
-    .scores .scores,
-    .help   .titles,
-    .help   .scores {
-        float: left;
-        clear: both;
+    .scores {
+        padding: 0.4em 0.8em 0 0.8em;
+        box-sizing: border-box;
     }
-    .scores .titles { color: #f0f5ff; }
+    .scores .score-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+    .scores table { display: table; }
+    .scores tr { display: table-row; }
+    .scores th,
+    .scores td {
+        display: table-cell !important;
+        position: static !important;
+        float: none !important;
+    }
+    .scores thead th {
+        color: #f0f5ff;
+        font-weight: bold;
+        text-align: left;
+        padding: 0.2em 0.1em 0.3em 0.1em;
+        border-bottom: 0.08em solid rgba(56, 242, 194, 0.35);
+    }
+    .scores thead th:nth-child(2) { text-align: center; width: 3.2em; }
+    .scores thead th:nth-child(3) { text-align: right; width: 5.5em; }
 
-    .scores .left,
-    .scores .right,
-    .help   .left,
-    .help   .right {
-        float: left;
-        width: 5.2em;
+    .scores tbody td {
         color: #e1ebff;
+        padding: 0.2em 0.1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
     }
-    .scores .left,   .help .left   { text-align: right; }
-    .scores .right,  .help .right  { text-align:  left; }
-    .scores .middle, .help .middle {
-        float: left;
-        width: 1.3em;
-        text-align: center;
+    .scores tbody td {
+        position: static !important;
+        float: none !important;
     }
+    .scores tbody td.hs-level { text-align: center; }
+    .scores tbody td.hs-score { text-align: right; }
+
+    /* Fallback for cached old markup */
+    .scores .titles,
+    .scores .highScore {
+        display: grid;
+        grid-template-columns: 1.6fr 0.6fr 1fr;
+        column-gap: 0.6em;
+        align-items: center;
+        padding: 0.15em 0;
+        box-sizing: border-box;
+    }
+    .scores .titles { font-weight: bold; color: #f0f5ff; }
+    .scores .highScore .left  { text-align: left; }
+    .scores .highScore .middle { text-align: center; }
+    .scores .highScore .right { text-align: right; }
 
     .none {
         display: none;
@@ -421,6 +476,14 @@ a:hover {
     .controls .middle {
         color: #d6e3ff;
     }
+    .controls .left,
+    .controls .middle,
+    .controls .right {
+        float: left;
+    }
+    .controls .left  { width: 6.2em; text-align: right; }
+    .controls .middle { width: 1.4em; text-align: center; }
+    .controls .right { width: 6.2em; text-align: left; }
     .controls p {
         float: left;
         clear: both;
@@ -492,7 +555,7 @@ a:hover {
     font-size: 0.4em;
 }
 .pauser {
-    display: block;
+    display: none;
     position: absolute;
     top: 21.0em;
     left: 1em;

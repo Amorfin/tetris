@@ -1,6 +1,6 @@
 import Board        from "./Board.js";
 import Display      from "./Display.js";
-import HighScores   from "./HighScores.js";
+import HighScores   from "./HighScores.js?v=35";
 import Keyboard     from "./Keyboard.js";
 import Level        from "./Level.js";
 import Score        from "./Score.js";
@@ -21,10 +21,85 @@ let score      = null;
 let tetriminos = null;
 let animation  = null;
 let startTime  = null;
+let ysdk       = null;
+let rewardBtn  = null;
+let rewardUsed = false;
 
 // Constants
 const tetriminoSize   = 2;
 const maxInitialLevel = 10;
+const rewardBonus     = 500;
+
+/**
+ * Initialize Yandex Games SDK
+ * @returns {Promise<Void>}
+ */
+function initSDK() {
+    if (window.YaGames && typeof window.YaGames.init === "function") {
+        return window.YaGames.init()
+            .then((sdk) => {
+                ysdk = sdk;
+                if (ysdk.features && ysdk.features.LoadingAPI && typeof ysdk.features.LoadingAPI.ready === "function") {
+                    ysdk.features.LoadingAPI.ready();
+                }
+            })
+            .catch((err) => {
+                console.error("Yandex SDK init error", err);
+            });
+    }
+    return Promise.resolve();
+}
+
+/**
+ * Show fullscreen ad
+ * @returns {Void}
+ */
+function showFullscreenAd() {
+    if (!ysdk || !ysdk.adv || typeof ysdk.adv.showFullscreenAdv !== "function") {
+        return;
+    }
+    ysdk.adv.showFullscreenAdv({
+        callbacks: {
+            onError: (err) => console.error(err)
+        }
+    });
+}
+
+/**
+ * Show rewarded ad and grant bonus
+ * @returns {Void}
+ */
+function showRewardedAd() {
+    if (rewardUsed) {
+        return;
+    }
+    const grantReward = () => {
+        rewardUsed = true;
+        if (score) {
+            score.score += rewardBonus;
+            score.showScore();
+        }
+        if (rewardBtn) {
+            rewardBtn.classList.add("disabled");
+        }
+    };
+
+    if (!ysdk || !ysdk.adv || typeof ysdk.adv.showRewardedVideo !== "function") {
+        // Allow local testing without SDK
+        const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+        if (isLocal) {
+            grantReward();
+        }
+        return;
+    }
+
+    ysdk.adv.showRewardedVideo({
+        callbacks: {
+            onRewarded: () => grantReward(),
+            onError: (err) => console.error(err)
+        }
+    });
+}
 
 
 
@@ -86,6 +161,11 @@ function showGameOver() {
     sounds.play("end");
     scores.setInput();
     destroyGame();
+    rewardUsed = false;
+    if (rewardBtn) {
+        rewardBtn.classList.remove("disabled");
+    }
+    showFullscreenAd();
 }
 
 /**
@@ -247,7 +327,8 @@ function initDomListeners() {
             help       : () => showHelp(),
             save       : () => saveHighScore(),
             restore    : () => scores.restore(),
-            sound      : () => sounds.toggle()
+            sound      : () => sounds.toggle(),
+            reward     : () => showRewardedAd()
         };
 
         if (actions[element.dataset.action]) {
@@ -270,6 +351,14 @@ function main() {
     sounds   = new Sounds("tetris.sound");
     scores   = new HighScores();
     keyboard = new Keyboard(display, scores, getShortcuts());
+    rewardBtn = document.querySelector(".reward");
+    if (rewardBtn) {
+        rewardBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            showRewardedAd();
+        });
+    }
+    initSDK();
 }
 
 // Load the game

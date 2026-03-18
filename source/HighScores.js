@@ -1,4 +1,4 @@
-import Storage      from "../utils/Storage.js";
+﻿import Storage      from "../utils/Storage.js";
 import Utils        from "../utils/Utils.js";
 
 
@@ -37,48 +37,43 @@ export default class HighScores {
      */
     show() {
         this.scores.innerHTML = "";
-        this.showHideNone(this.total === 0);
+        const records = this.getRecords();
+        if (records.length !== this.total) {
+            this.total = records.length;
+            this.data.set("total", records.length);
+        }
+        this.showHideNone(records.length === 0);
 
-        if (this.total > 0) {
-            this.displayTitles();
-            this.displayScores();
+        if (records.length > 0) {
+            const table = document.createElement("table");
+            table.className = "score-table";
+
+            const thead = document.createElement("thead");
+            thead.innerHTML = `
+                <tr>
+                    <th>имя</th>
+                    <th>ур.</th>
+                    <th>счет</th>
+                </tr>
+            `;
+
+            const tbody = document.createElement("tbody");
+            records.forEach((data) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="hs-name">${data.name}</td>
+                    <td class="hs-level">${data.level}</td>
+                    <td class="hs-score">${Utils.formatNumber(data.score, ",")}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            this.scores.appendChild(table);
         }
     }
-
-    /**
-     * Create the titles and place it in the DOM
-     */
-    displayTitles() {
-        const div = this.createContent("имя", "ур.", "счет");
-        div.className = "titles";
-        this.scores.appendChild(div);
-    }
-
-    /**
-     * Create each score line and place it in the DOM
-     */
-    displayScores() {
-        for (let i = 1; i <= this.total; i += 1) {
-            const data = this.data.get(i);
-            const div  = this.createContent(data.name, data.level, Utils.formatNumber(data.score, ","));
-
-            div.className = "highScore";
-            this.scores.appendChild(div);
-        }
-    }
-
-    /**
-     * Creates the content for each High Score
-     */
-    createContent(name, level, score) {
-        const element = document.createElement("DIV");
-        element.innerHTML = `
-            <div class="left">${name} -</div>
-            <div class="middle">${level}</div>
-            <div class="right">- ${score}</div>
-        `;
-        return element;
-    }
+    // Table rows are rendered in show()
 
     /**
      * Tries to save a score, when possible
@@ -87,8 +82,9 @@ export default class HighScores {
      * @returns {Boolean}
      */
     save(level, score) {
-        if (this.input.value) {
-            this.saveData(level, score);
+        const name = this.input.value.trim();
+        if (name) {
+            this.saveData(level, score, name);
             return true;
         }
         return false;
@@ -99,17 +95,18 @@ export default class HighScores {
      * @param {Number} level
      * @param {Number} score
      */
-    saveData(level, score) {
+    saveData(level, score, name) {
         const data   = [];
         const actual = {
-            name  : this.input.value,
+            name  : name,
             level : level,
             score : score
         };
         let saved = false;
 
-        for (let i = 1; i <= this.total; i += 1) {
-            const hs = this.data.get(i);
+        const records = this.getRecords();
+        for (let i = 0; i < records.length; i += 1) {
+            const hs = records[i];
             if (!saved && hs.score < actual.score) {
                 data.push(actual);
                 saved = true;
@@ -127,6 +124,21 @@ export default class HighScores {
             this.data.set(index + 1, element);
         });
         this.total = data.length;
+    }
+
+    /**
+     * Returns a sanitized list of records
+     * @returns {Array<{name: string, level: number, score: number}>}
+     */
+    getRecords() {
+        const records = [];
+        for (let i = 1; i <= this.total; i += 1) {
+            const hs = this.data.get(i);
+            if (hs && typeof hs.score === "number") {
+                records.push(hs);
+            }
+        }
+        return records;
     }
 
     /**
@@ -156,3 +168,4 @@ export default class HighScores {
         this.input.focus();
     }
 }
+
