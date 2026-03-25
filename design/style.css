@@ -132,7 +132,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.55em;
+    gap: 0.45em;
     padding: 0.6em 0.5em 0.8em;
     box-sizing: border-box;
 }
@@ -560,11 +560,12 @@ a:hover {
     height: auto;
     font-size: 2em;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25em;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 0.25em;
+    width: 100%;
 }
-.next  { min-height: 6.2em; }
+.next  { min-height: 6.6em; }
 .level { min-height: 3.6em; }
 .score { min-height: 3.6em; }
 .lines { min-height: 3.6em; flex: 1 1 auto; }
@@ -572,7 +573,7 @@ a:hover {
     .content {
         position: relative;
         margin: 0 0.1em;
-        padding: 0.2em 0.5em;
+        padding: 0.25em 0.5em;
         background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
         border: 0.16em solid var(--edge);
         text-align: right;
@@ -582,7 +583,8 @@ a:hover {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        min-height: 2.1em;
+        min-height: 2.4em;
+        width: 100%;
     }
     .next .content {
         min-height: 4.8em;
@@ -594,12 +596,12 @@ a:hover {
     }
     .title {
         position: relative;
-        margin: 0 0.4em;
-        padding: 0.18em 0.4em;
+        margin: 0 0.1em;
+        padding: 0.2em 0.4em;
         color: #e8f0ff;
-        line-height: 1.1em;
+        line-height: 1.15em;
         letter-spacing: 0.02em;
-        font-size: 0.65em;
+        font-size: 0.62em;
         text-align: center;
         background: rgba(8, 12, 20, 0.9);
         border: 0.14em solid var(--edge);
@@ -608,6 +610,9 @@ a:hover {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
+        word-break: break-word;
+        white-space: normal;
     }
 
 #next {
