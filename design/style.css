@@ -175,31 +175,32 @@ a:hover {
         border-top: 0.2em solid rgba(56, 242, 194, 0.6);
         border-bottom: 0.2em solid rgba(255, 122, 217, 0.6);
         opacity: 0.98;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 0.35em;
+        padding: 0.6em 1em 0.4em;
     }
     .messages .text h2 {
-        position: absolute;
-        top: 0.2em;
-        left: 0;
-        right: 0;
+        position: static;
         margin: 0;
         font-size: 3.8em;
-        line-height: 0.95em;
-        text-align: center;
+        line-height: 1em;
         color: #e8f0ff;
         letter-spacing: 0.06em;
         text-shadow: 0 0.08em 0.2em rgba(0, 0, 0, 0.6);
     }
     .messages .text p {
-        position: absolute;
-        top: 3.0em;
-        left: 0;
-        right: 0;
-        text-align: center;
+        position: static;
         color: rgba(232, 240, 255, 0.82);
         font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
         line-height: 1.2em;
         letter-spacing: 0.05em;
         font-size: 1.25em;
+        margin: 0;
+        max-width: 22em;
     }
 
 
