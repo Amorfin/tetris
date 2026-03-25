@@ -164,7 +164,7 @@ a:hover {
     left: 0;
     bottom: 0;
     right: 0;
-    --header-h: 8.2em;
+    --header-h: 9.4em;
     --panel-pad: 1.2em;
 }
     .messages .text {
@@ -182,18 +182,19 @@ a:hover {
         align-items: center;
         justify-content: center;
         text-align: center;
-        gap: 0.35em;
-        padding: 0.6em 1.2em 0.4em;
+        gap: 0.25em;
+        padding: 0.8em 1.2em 0.6em;
     }
     .messages .text h2 {
         position: static;
         margin: 0;
-        font-size: clamp(2.4em, 5.6vw, 3.8em);
+        font-size: clamp(2.2em, 5.2vw, 3.2em);
         line-height: 1.05em;
         color: #e8f0ff;
         letter-spacing: 0.06em;
         text-shadow: 0 0.08em 0.2em rgba(0, 0, 0, 0.6);
         overflow-wrap: anywhere;
+        max-width: 8.5em;
     }
     .messages .text p {
         position: static;
@@ -201,9 +202,9 @@ a:hover {
         font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
         line-height: 1.2em;
         letter-spacing: 0.05em;
-        font-size: clamp(1.05em, 2.8vw, 1.25em);
+        font-size: clamp(1.0em, 2.6vw, 1.15em);
         margin: 0;
-        max-width: 22em;
+        max-width: 24em;
         overflow-wrap: anywhere;
     }
 
