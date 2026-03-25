@@ -1,13 +1,13 @@
-import Utils        from "../utils/Utils.js";
+﻿import Utils        from "../utils/Utils.js";
 
 
 /**
- * Tetris Score
+ * Neon Blocks Score
  */
 export default class Score {
 
     /**
-     * Tetris Score constructor
+     * Neon Blocks Score constructor
      * @param {Number} level
      * @param {Number} maxInitialLevel
      */
@@ -149,3 +149,4 @@ export default class Score {
         return this.timeInterval;
     }
 }
+

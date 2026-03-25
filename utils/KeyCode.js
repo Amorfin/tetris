@@ -217,7 +217,7 @@ function isEnter(key) {
  */
 function isErase(key) {
     const code = codes[key];
-    return code === "Backspace" || code === "B" || code === "N";
+    return code === "B" || code === "N";
 }
 
 /**
@@ -227,7 +227,7 @@ function isErase(key) {
  */
 function isPauseContinue(key) {
     const code = codes[key];
-    return code === "P" || code === "C";
+    return code === "P";
 }
 
 /**

@@ -1,4 +1,4 @@
-import Board        from "./Board.js";
+﻿import Board        from "./Board.js";
 import Display      from "./Display.js";
 import HighScores   from "./HighScores.js?v=35";
 import Keyboard     from "./Keyboard.js";
@@ -29,6 +29,175 @@ let rewardUsed = false;
 const tetriminoSize   = 2;
 const maxInitialLevel = 10;
 const rewardBonus     = 500;
+const gameId          = "neonblocks";
+
+const I18N = {
+    ru: {
+        gameName: "Neon Blocks",
+        main: {
+            title: "Neon Blocks",
+            subtitle: "Р’С‹Р±РµСЂРёС‚Рµ РЅР°С‡Р°Р»СЊРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ",
+            speed: "РЈСЂРѕРІРµРЅСЊ СЃРєРѕСЂРѕСЃС‚Рё:"
+        },
+        menu: {
+            start: "РЎС‚Р°СЂС‚ (<u>O</u>)",
+            highScores: "Р РµРєРѕСЂРґС‹ (<u>I</u>)",
+            help: "РџРѕРјРѕС‰СЊ (<u>H</u>)",
+            continue: "РџСЂРѕРґРѕР»Р¶РёС‚СЊ (<u>P</u>)",
+            newGame: "РќРѕРІР°СЏ РёРіСЂР° (<u>N</u>)",
+            pause: "РџР°СѓР·Р° (<u>P</u>)"
+        },
+        input: {
+            name: "РРјСЏ РёРіСЂРѕРєР°:",
+            ok: "РћРљ (<u>Enter</u>)",
+            reward: "Р РµРєР»Р°РјР° Р·Р° Р±РѕРЅСѓСЃ +500"
+        },
+        high: {
+            none: "РџРѕРєР° РЅРµС‚ СЂРµРєРѕСЂРґРѕРІ",
+            reset: "РЎР±СЂРѕСЃРёС‚СЊ (<u>R</u>)",
+            back: "РќР°Р·Р°Рґ (<u>B</u>)"
+        },
+        controls: {
+            keyLeft: "<b>РЎС‚СЂРµР»РєР° РІР»РµРІРѕ</b>",
+            keyRight: "<b>РЎС‚СЂРµР»РєР° РІРїСЂР°РІРѕ</b>",
+            keyDown: "<b>РЎС‚СЂРµР»РєР° РІРЅРёР·</b>",
+            keyRotateRight: "<b>X</b> РёР»Рё <b>РЎС‚СЂРµР»РєР° РІРІРµСЂС…</b>",
+            keyRotateLeft: "<b>Z</b>",
+            keyHardDrop: "<b>C</b>",
+            keyPause: "<b>P</b>",
+            keySound: "<b>M</b>",
+            keyStart: "<b>O</b>",
+            moveLeft: "РЎРґРІРёРі РІР»РµРІРѕ",
+            moveRight: "РЎРґРІРёРі РІРїСЂР°РІРѕ",
+            softDrop: "РњСЏРіРєРѕРµ РїР°РґРµРЅРёРµ",
+            rotateRight: "РџРѕРІРѕСЂРѕС‚ РІРїСЂР°РІРѕ",
+            rotateLeft: "РџРѕРІРѕСЂРѕС‚ РІР»РµРІРѕ",
+            hardDrop: "Р–С‘СЃС‚РєРѕРµ РїР°РґРµРЅРёРµ",
+            pause: "РџР°СѓР·Р°",
+            sound: "Р—РІСѓРє РІРєР»/РІС‹РєР»",
+            start: "РЎС‚Р°СЂС‚",
+            note: "РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃСЃС‹Р»РєРё РёР»Рё РєР»Р°РІРёС€Рё РёР· РїРѕРґСЃРєР°Р·РѕРє РІ СЃРєРѕР±РєР°С…."
+        },
+        side: {
+            next: "РЎР»РµРґСѓСЋС‰РёР№",
+            level: "РЈСЂРѕРІРµРЅСЊ",
+            score: "РЎС‡РµС‚",
+            lines: "Р›РёРЅРёРё"
+        },
+        messages: {
+            mainScreen: [ "Neon Blocks", "Р’С‹Р±РµСЂРёС‚Рµ РЅР°С‡Р°Р»СЊРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ" ],
+            paused: [ "РџР°СѓР·Р°", "РџСЂРѕРґРѕР»Р¶РёС‚СЊ РёРіСЂСѓ?" ],
+            continuing: [ "РџСЂРѕРґРѕР»Р¶РµРЅРёРµ", "РџСЂРѕРґРѕР»Р¶РёС‚СЊ РёРіСЂСѓ?" ],
+            gameOver: [ "РРіСЂР° РѕРєРѕРЅС‡РµРЅР°", "" ],
+            highScores: [ "Р РµРєРѕСЂРґС‹", "Р›СѓС‡С€РёРµ СЂРµР·СѓР»СЊС‚Р°С‚С‹" ],
+            help: [ "РџРѕРјРѕС‰СЊ", "РЈРїСЂР°РІР»РµРЅРёРµ" ]
+        },
+        table: { name: "РёРјСЏ", level: "СѓСЂ.", score: "СЃС‡РµС‚" },
+        sound: { mute: "Р—РІСѓРє РІС‹РєР» (<u>M</u>)", unmute: "Р—РІСѓРє РІРєР» (<u>M</u>)" }
+    },
+    en: {
+        gameName: "Neon Blocks",
+        main: {
+            title: "Neon Blocks",
+            subtitle: "Select starting level",
+            speed: "Speed level:"
+        },
+        menu: {
+            start: "Start (<u>O</u>)",
+            highScores: "High scores (<u>I</u>)",
+            help: "Help (<u>H</u>)",
+            continue: "Continue (<u>P</u>)",
+            newGame: "New game (<u>N</u>)",
+            pause: "Pause (<u>P</u>)"
+        },
+        input: {
+            name: "Player name:",
+            ok: "OK (<u>Enter</u>)",
+            reward: "Ad for bonus +500"
+        },
+        high: {
+            none: "No records yet",
+            reset: "Reset (<u>R</u>)",
+            back: "Back (<u>B</u>)"
+        },
+        controls: {
+            keyLeft: "<b>Left Arrow</b>",
+            keyRight: "<b>Right Arrow</b>",
+            keyDown: "<b>Down Arrow</b>",
+            keyRotateRight: "<b>X</b> or <b>Up Arrow</b>",
+            keyRotateLeft: "<b>Z</b>",
+            keyHardDrop: "<b>C</b>",
+            keyPause: "<b>P</b>",
+            keySound: "<b>M</b>",
+            keyStart: "<b>O</b>",
+            moveLeft: "Move left",
+            moveRight: "Move right",
+            softDrop: "Soft drop",
+            rotateRight: "Rotate right",
+            rotateLeft: "Rotate left",
+            hardDrop: "Hard drop",
+            pause: "Pause",
+            sound: "Sound on/off",
+            start: "Start",
+            note: "Use the links or the keys shown in brackets."
+        },
+        side: {
+            next: "Next",
+            level: "Level",
+            score: "Score",
+            lines: "Lines"
+        },
+        messages: {
+            mainScreen: [ "Neon Blocks", "Select starting level" ],
+            paused: [ "Paused", "Continue the game?" ],
+            continuing: [ "Continue", "Continue the game?" ],
+            gameOver: [ "Game Over", "" ],
+            highScores: [ "High Scores", "Best results" ],
+            help: [ "Help", "Controls" ]
+        },
+        table: { name: "name", level: "lv.", score: "score" },
+        sound: { mute: "<u>M</u>ute", unmute: "Un<u>m</u>ute" }
+    }
+};
+
+let currentLang = "en";
+
+function getLangFromSdk() {
+    const sdkLang = ysdk && ysdk.environment && ysdk.environment.i18n && ysdk.environment.i18n.lang;
+    const lang = (sdkLang || navigator.language || "en").toLowerCase();
+    return lang.startsWith("ru") ? "ru" : "en";
+}
+
+function getI18nValue(path) {
+    return path.split(".").reduce((acc, key) => acc && acc[key], I18N[currentLang]);
+}
+
+function applyLanguage(lang) {
+    currentLang = I18N[lang] ? lang : "en";
+    const t = I18N[currentLang];
+    document.title = t.gameName;
+    document.documentElement.lang = currentLang;
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const value = getI18nValue(el.dataset.i18n);
+        if (value !== undefined) el.textContent = value;
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+        const value = getI18nValue(el.dataset.i18nHtml);
+        if (value !== undefined) el.innerHTML = value;
+    });
+
+    if (display) {
+        display.setMessages(t.messages);
+        display.show();
+    }
+    if (scores) {
+        scores.setLabels(t.table);
+    }
+    if (sounds) {
+        sounds.setLabels(t.sound);
+    }
+}
 
 /**
  * Initialize Yandex Games SDK
@@ -42,6 +211,7 @@ function initSDK() {
                 if (ysdk.features && ysdk.features.LoadingAPI && typeof ysdk.features.LoadingAPI.ready === "function") {
                     ysdk.features.LoadingAPI.ready();
                 }
+                applyLanguage(getLangFromSdk());
             })
             .catch((err) => {
                 console.error("Yandex SDK init error", err);
@@ -84,10 +254,12 @@ function showRewardedAd() {
         }
     };
 
+    const host = window.location.hostname;
+    const isYandex = host.includes("yandex") || host.includes("games.s3.yandex.net") || host.includes("yandex.net");
+
     if (!ysdk || !ysdk.adv || typeof ysdk.adv.showRewardedVideo !== "function") {
-        // Allow local testing without SDK
-        const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
-        if (isLocal) {
+        // Allow testing outside Yandex Games
+        if (!isYandex) {
             grantReward();
         }
         return;
@@ -313,6 +485,16 @@ function getShortcuts() {
  * @returns {Void}
  */
 function initDomListeners() {
+    const blockInteraction = (e) => {
+        const target = e.target;
+        if (target && target.closest && target.closest(".board, .field, .winker, #piece, #ghost")) {
+            e.preventDefault();
+        }
+    };
+    document.addEventListener("contextmenu", blockInteraction);
+    document.addEventListener("selectstart", blockInteraction);
+    document.addEventListener("dragstart", blockInteraction);
+
     document.body.addEventListener("click", (e) => {
         const element = Utils.getTarget(e);
         const actions = {
@@ -332,6 +514,7 @@ function initDomListeners() {
         };
 
         if (actions[element.dataset.action]) {
+            e.preventDefault();
             actions[element.dataset.action]();
         }
     });
@@ -348,7 +531,7 @@ function main() {
 
     display  = new Display();
     level    = new Level(maxInitialLevel);
-    sounds   = new Sounds("tetris.sound");
+    sounds   = new Sounds(`${gameId}.sound`);
     scores   = new HighScores();
     keyboard = new Keyboard(display, scores, getShortcuts());
     rewardBtn = document.querySelector(".reward");
@@ -358,8 +541,10 @@ function main() {
             showRewardedAd();
         });
     }
+    applyLanguage(getLangFromSdk());
     initSDK();
 }
 
 // Load the game
 window.addEventListener("load", main, false);
+

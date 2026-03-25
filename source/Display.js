@@ -1,27 +1,37 @@
-/**
- * Tetris Display
+﻿/**
+ * Game Display
  */
 export default class Display {
 
     /**
-     * Tetris Display constructor
+     * Display constructor
+     * @param {Object=} messages
      */
-    constructor() {
+    constructor(messages = null) {
         this.current   = "mainScreen";
         this.container = document.querySelector("#container");
         this.header    = document.querySelector(".messages h2");
         this.paragraph = document.querySelector(".messages p");
 
-        this.messages  = {
-            mainScreen : [ "Тетрис",        "Выберите начальный уровень" ],
-            paused     : [ "Пауза",        "Продолжить игру?"          ],
-            continuing : [ "Продолжение",  "Продолжить игру?"          ],
-            gameOver   : [ "Игра окончена",""                          ],
-            highScores : [ "Рекорды",      "Лучшие результаты"         ],
-            help       : [ "Помощь",       "Управление"                ]
+        this.messages  = messages || {
+            mainScreen : [ "Neon Blocks", "Select starting level" ],
+            paused     : [ "Paused", "Continue the game?" ],
+            continuing : [ "Continue", "Continue the game?" ],
+            gameOver   : [ "Game Over", "" ],
+            highScores : [ "High Scores", "Best results" ],
+            help       : [ "Help", "Controls" ]
         };
     }
 
+    /**
+     * Updates localized messages
+     * @param {Object} messages
+     */
+    setMessages(messages) {
+        if (messages) {
+            this.messages = messages;
+        }
+    }
 
     /**
      * Gets the Game Display
@@ -41,7 +51,6 @@ export default class Display {
         return this;
     }
 
-
     /**
      * Show the message
      */
@@ -57,8 +66,6 @@ export default class Display {
     hide() {
         this.container.className = "playing";
     }
-
-
 
     /**
      * Returns true if the current is in the main screen
@@ -84,3 +91,4 @@ export default class Display {
         return this.current === "paused";
     }
 }
+

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <title>Тетрис</title>
+    <title>Neon Blocks</title>
     <link rel="icon" href="favicon.ico" />
     <script src="/sdk.js"></script>
-    <link rel="stylesheet" href="design/style.css?v=37" />
-    <script type="module" src="source/Main.js?v=37"></script>
+    <link rel="stylesheet" href="design/style.css?v=39" />
+    <script type="module" src="source/Main.js?v=39"></script>
 </head>
 
 <body>
@@ -21,70 +21,70 @@
 
             <div class="messages">
                 <div class="text">
-                    <h2>Тетрис</h2>
-                    <p>Выберите начальный уровень</p>
+                    <h2 data-i18n="main.title">Neon Blocks</h2>
+                    <p data-i18n="main.subtitle">Select starting level</p>
                 </div>
 
                 <div class="levels">
-                    уровень скорости: <span class="leveler">1</span><br />
+                    <span class="speed-label" data-i18n="main.speed">Speed level:</span> <span class="leveler">1</span><br />
                     <div class="left" data-action="decrease"></div>
                     <div class="right" data-action="increase"></div>
                     <ul>
-                        <li><a href="#" data-action="start">старт (<u>O</u>)</a></li>
-                        <li><a href="#" data-action="highScores">рекорды (<u>I</u>)</a></li>
-                        <li><a href="#" data-action="help">помощь (<u>H</u>)</a></li>
+                        <li><a href="#" data-action="start" data-i18n-html="menu.start">Start (<u>O</u>)</a></li>
+                        <li><a href="#" data-action="highScores" data-i18n-html="menu.highScores">High scores (<u>I</u>)</a></li>
+                        <li><a href="#" data-action="help" data-i18n-html="menu.help">Help (<u>H</u>)</a></li>
                     </ul>
                 </div>
 
                 <ul class="pause">
-                    <li><a href="#" data-action="endPause">продолжить (<u>C</u>)</a></li>
-                    <li><a href="#" data-action="finishGame">новая игра (<u>N</u>)</a></li>
+                    <li><a href="#" data-action="endPause" data-i18n-html="menu.continue">Continue (<u>P</u>)</a></li>
+                    <li><a href="#" data-action="finishGame" data-i18n-html="menu.newGame">New game (<u>N</u>)</a></li>
                 </ul>
 
                 <div class="input">
-                    <p>имя игрока:</p>
+                    <p data-i18n="input.name">Player name:</p>
                     <input type="text" />
-                    <a href="#" data-action="save">ок (<u>O</u>)</a>
-                    <a class="reward" href="#" data-action="reward">бонус +500</a>
-                    <a class="restart" href="#" data-action="mainScreen">новая игра (<u>N</u>)</a>
+                    <a href="#" data-action="save" data-i18n-html="input.ok">OK (<u>Enter</u>)</a>
+                    <a class="reward" href="#" data-action="reward" data-i18n="input.reward">Ad for bonus +500</a>
+                    <a class="restart" href="#" data-action="mainScreen" data-i18n-html="menu.newGame">New game (<u>N</u>)</a>
                 </div>
 
                 <div class="high">
                     <div class="scores"></div>
-                    <div class="none">пока нет рекордов</div>
-                    <a class="restore" href="#" data-action="restore">сбросить (<u>R</u>)</a>
-                    <a class="back" href="#" data-action="mainScreen">назад (<u>B</u>)</a>
+                    <div class="none" data-i18n="high.none">No records yet</div>
+                    <a class="restore" href="#" data-action="restore" data-i18n-html="high.reset">Reset (<u>R</u>)</a>
+                    <a class="back" href="#" data-action="mainScreen" data-i18n-html="high.back">Back (<u>B</u>)</a>
                 </div>
 
                 <div class="controls">
                     <div class="left">
-                        <b>Стрелка влево</b><br />
-                        <b>Стрелка вправо</b><br />
-                        <b>Стрелка вниз</b><br />
-                        <b>X</b> или <b>Стрелка вверх</b><br />
-                        <b>Z</b><br />
-                        <b>Ctrl</b> или <b>Space</b><br />
-                        <b>P</b><br />
-                        <b>M</b><br />
-                        <b>Enter</b>
+                        <div data-i18n-html="controls.keyLeft"><b>Left Arrow</b></div>
+                        <div data-i18n-html="controls.keyRight"><b>Right Arrow</b></div>
+                        <div data-i18n-html="controls.keyDown"><b>Down Arrow</b></div>
+                        <div data-i18n-html="controls.keyRotateRight"><b>X</b> or <b>Up Arrow</b></div>
+                        <div data-i18n-html="controls.keyRotateLeft"><b>Z</b></div>
+                        <div data-i18n-html="controls.keyHardDrop"><b>C</b></div>
+                        <div data-i18n-html="controls.keyPause"><b>P</b></div>
+                        <div data-i18n-html="controls.keySound"><b>M</b></div>
+                        <div data-i18n-html="controls.keyStart"><b>O</b></div>
                     </div>
                     <div class="middle">
                         - <br /> - <br /> - <br /> - <br /> - <br />
                         - <br /> - <br /> - <br /> -
                     </div>
                     <div class="right">
-                        Сдвиг влево<br />
-                        Сдвиг вправо<br />
-                        Мягкое падение<br />
-                        Поворот вправо<br />
-                        Поворот влево<br />
-                        Жесткое падение<br />
-                        Пауза<br />
-                        Звук вкл/выкл<br />
-                        Старт
+                        <div data-i18n="controls.moveLeft">Move left</div>
+                        <div data-i18n="controls.moveRight">Move right</div>
+                        <div data-i18n="controls.softDrop">Soft drop</div>
+                        <div data-i18n="controls.rotateRight">Rotate right</div>
+                        <div data-i18n="controls.rotateLeft">Rotate left</div>
+                        <div data-i18n="controls.hardDrop">Hard drop</div>
+                        <div data-i18n="controls.pause">Pause</div>
+                        <div data-i18n="controls.sound">Sound on/off</div>
+                        <div data-i18n="controls.start">Start</div>
                     </div>
-                    <p>Используйте ссылки или клавиши из подсказок в скобках.</p>
-                    <a class="back" href="#" data-action="mainScreen">назад (<u>B</u>)</a>
+                    <p data-i18n="controls.note">Use the links or the keys shown in brackets.</p>
+                    <a class="back" href="#" data-action="mainScreen" data-i18n-html="high.back">Back (<u>B</u>)</a>
                 </div>
             </div>
         </div>
@@ -94,19 +94,19 @@
                 <div class="content">
                     <div id="next"></div>
                 </div>
-                <div class="title">следующий</div>
+                <div class="title" data-i18n="side.next">Next</div>
             </div>
             <div class="level">
                 <div class="content">1</div>
-                <div class="title">уровень</div>
+                <div class="title" data-i18n="side.level">Level</div>
             </div>
             <div class="score">
                 <div class="content">0</div>
-                <div class="title">счет</div>
+                <div class="title" data-i18n="side.score">Score</div>
             </div>
             <div class="lines">
                 <div class="content">0</div>
-                <div class="title">линии</div>
+                <div class="title" data-i18n="side.lines">Lines</div>
             </div>
 
             <div class="audio" data-action="sound">
@@ -117,7 +117,7 @@
                 <div class="triangle"></div>
                 <div class="box"></div>
             </div>
-            <a class="pauser" href="#" data-action="pause">пауза (<u>P</u>)</a>
+            <a class="pauser" href="#" data-action="pause" data-i18n-html="menu.pause">Pause (<u>P</u>)</a>
         </div>
     </div>
 

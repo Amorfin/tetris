@@ -1,14 +1,14 @@
-import Board        from "./Board.js";
+﻿import Board        from "./Board.js";
 import Utils        from "../utils/Utils.js";
 
 
 /**
- * Tetris Tetrimino
+ * Neon Blocks Tetrimino
  */
 export default class Tetrimino {
 
     /**
-     * Tetris Tetrimino constructor
+     * Neon Blocks Tetrimino constructor
      * @param {Board}  board
      * @param {Number} type
      * @param {Object} data
@@ -247,3 +247,4 @@ export default class Tetrimino {
         this.ghostElem.innerHTML = "";
     }
 }
+

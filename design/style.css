@@ -1,20 +1,4 @@
-/**
- * Game Fonts
- */
-@font-face {
-    font-family: "Agency FB";
-    font-style: normal;
-    font-weight: bold;
-    src: local("Agency FB Negrita"), url("../fonts/agencyb.ttf") format("truetype");
-}
-@font-face {
-    font-family: "Agency FB";
-    font-style: normal;
-    font-weight: normal;
-    src: local("Agency FB"), url("../fonts/agencyr.ttf") format("truetype");
-}
-
-:root {
+﻿:root {
     --ink: #e8f0ff;
     --ink-soft: #9ab2e6;
     --accent: #38f2c2;
@@ -43,8 +27,33 @@ html, body {
 }
 html, body, input {
     color: var(--ink-soft);
-    font-family: "Agency FB", "Trebuchet MS", sans-serif;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
     font-weight: bold;
+}
+
+#container,
+.board,
+.field,
+.winker,
+#piece,
+#ghost {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.board,
+.field {
+    touch-action: none;
+}
+
+.input input {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 body {
     background-image:
@@ -187,7 +196,7 @@ a:hover {
         right: 0;
         text-align: center;
         color: rgba(232, 240, 255, 0.82);
-        font-family: "Agency FB", "Trebuchet MS", sans-serif;
+        font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
         line-height: 1.2em;
         letter-spacing: 0.05em;
         font-size: 1.25em;
@@ -770,3 +779,4 @@ a:hover {
 .tetriminos {
     display: none;
 }
+

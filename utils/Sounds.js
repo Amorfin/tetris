@@ -15,6 +15,7 @@ export default class Sounds {
         this.data    = new Storage(storageName, true);
         this.mute    = !!this.data.get();
         this.old     = this.mute;
+        this.labels  = { mute: "Mute", unmute: "Unmute" };
 
         /** @type {HTMLElement} */
         this.audio   = document.querySelector(".audio");
@@ -35,8 +36,28 @@ export default class Sounds {
      */
     play(sound) {
         if (!this.mute) {
-            const audio = new Audio(`audio/${sound}.mp3`);
-            audio.play();
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = "square";
+                const toneMap = {
+                    drop: 220,
+                    line: 440,
+                    rotate: 330,
+                    crash: 140,
+                    pause: 260,
+                    end: 180,
+                };
+                osc.frequency.value = toneMap[sound] || 300;
+                gain.gain.value = 0.08;
+                osc.start();
+                osc.stop(ctx.currentTime + 0.12);
+            } catch (e) {
+                // Ignore audio errors
+            }
         }
     }
 
@@ -49,6 +70,17 @@ export default class Sounds {
         this.mute = mute !== undefined ? mute : !this.mute;
         this.setDisplay();
         this.data.set(this.mute ? 1 : 0);
+    }
+
+    /**
+     * Set localized labels
+     * @param {{mute: string, unmute: string}} labels
+     */
+    setLabels(labels) {
+        if (labels) {
+            this.labels = labels;
+        }
+        this.setDisplay();
     }
 
     /**
@@ -85,7 +117,7 @@ export default class Sounds {
             this.waves.style.display = this.mute ? "none" : "block";
         }
         if (this.element) {
-            this.element.innerHTML = this.mute ? "Un<u>m</u>ute" : "<u>M</u>ute";
+            this.element.innerHTML = this.mute ? this.labels.unmute : this.labels.mute;
         }
     }
 }

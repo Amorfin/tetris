@@ -1,14 +1,14 @@
-import Utils        from "../utils/Utils.js";
+﻿import Utils        from "../utils/Utils.js";
 
 
 
 /**
- * Tetris Level
+ * Neon Blocks Level
  */
 export default class Level {
 
     /**
-     * Tetris Level constructor
+     * Neon Blocks Level constructor
      * @param {Number} maxLevels
      */
     constructor(maxLevels) {
@@ -73,3 +73,4 @@ export default class Level {
         this.levelerElem.innerHTML = String(this.level);
     }
 }
+

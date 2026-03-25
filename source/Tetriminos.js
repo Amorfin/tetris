@@ -1,4 +1,4 @@
-import Board        from "./Board.js";
+﻿import Board        from "./Board.js";
 import Tetrimino    from "./Tetrimino.js";
 import Score        from "./Score.js";
 import Sounds       from "../utils/Sounds.js";
@@ -6,12 +6,12 @@ import Utils        from "../utils/Utils.js";
 
 
 /**
- * Tetris Tetriminos
+ * Neon Blocks Tetriminos
  */
 export default class Tetriminos {
 
     /**
-     * Tetris Tetriminos constructor
+     * Neon Blocks Tetriminos constructor
      * @param {Board}    board
      * @param {Sounds}   sounds
      * @param {Score}    score
@@ -233,3 +233,4 @@ export default class Tetriminos {
         this.actual.clearElements();
     }
 }
+

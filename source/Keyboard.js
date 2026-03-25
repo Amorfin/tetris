@@ -1,4 +1,4 @@
-import Display      from "./Display.js";
+﻿import Display      from "./Display.js";
 import HighScores   from "./HighScores.js";
 
 // Utils
@@ -7,12 +7,12 @@ import KeyCode      from "../utils/KeyCode.js";
 
 
 /**
- * Tetris Keyboard
+ * Neon Blocks Keyboard
  */
 export default class Keyboard {
 
     /**
-     * Tetris Keyboard constructor
+     * Neon Blocks Keyboard constructor
      * @param {Display}    display
      * @param {HighScores} scores
      * @param {Object}     shortcuts
@@ -80,10 +80,8 @@ export default class Keyboard {
                 event.preventDefault();
             }
 
-            if ([ "Enter", "Return", "O", "T" ].includes(keyCode)) {
+            if ([ "Enter", "Return", "O" ].includes(keyCode)) {
                 shortcut = "O";
-            } else if ([ "Control", "Space" ].includes(keyCode)) {
-                shortcut = "C";
             } else if (KeyCode.isErase(key)) {
                 shortcut = "B";
             } else if (KeyCode.isPauseContinue(key)) {
@@ -114,6 +112,25 @@ export default class Keyboard {
      * @returns {Void}
      */
     onKeyDown(event) {
+        if (this.scores.isFocused) {
+            if (KeyCode.isEnter(event.keyCode)) {
+                event.preventDefault();
+                this.pressKey(event.keyCode, event);
+            }
+            return;
+        }
+
+        const keyCode = KeyCode.keyToCode(event.keyCode);
+        const handledKeys = [
+            "Left", "Right", "Up", "Down",
+            "A", "D", "W", "S", "Z", "X", "C",
+            "P", "M", "N", "O", "I", "H", "B", "R",
+            "Enter", "Return"
+        ];
+        if (handledKeys.includes(keyCode)) {
+            event.preventDefault();
+        }
+
         if (this.display.isPlaying && KeyCode.isFastKey(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
@@ -147,3 +164,4 @@ export default class Keyboard {
         }
     }
 }
+

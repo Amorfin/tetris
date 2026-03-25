@@ -4,18 +4,19 @@ import Utils        from "../utils/Utils.js";
 
 
 /**
- * Tetris High Scores
+ * Neon Blocks High Scores
  */
 export default class HighScores {
 
     /**
-     * Tetris High Scores constructor
+     * Neon Blocks High Scores constructor
      */
     constructor() {
-        this.data      = new Storage("tetris.hs");
+        this.data      = new Storage("neonblocks.hs");
         this.total     = this.data.get("total") || 0;
         this.maxScores = 9;
         this.isFocused = false;
+        this.labels    = { name: "name", level: "lv.", score: "score" };
 
         /** @type {HTMLInputElement} */
         this.input     = document.querySelector(".input input");
@@ -28,6 +29,16 @@ export default class HighScores {
 
         this.input.onfocus = () => this.isFocused = true;
         this.input.onblur  = () => this.isFocused = false;
+    }
+
+    /**
+     * Set localized labels for the table header
+     * @param {{name: string, level: string, score: string}} labels
+     */
+    setLabels(labels) {
+        if (labels) {
+            this.labels = labels;
+        }
     }
 
 
@@ -51,9 +62,9 @@ export default class HighScores {
             const thead = document.createElement("thead");
             thead.innerHTML = `
                 <tr>
-                    <th>имя</th>
-                    <th>ур.</th>
-                    <th>счет</th>
+                    <th>${this.labels.name}</th>
+                    <th>${this.labels.level}</th>
+                    <th>${this.labels.score}</th>
                 </tr>
             `;
 
@@ -168,4 +179,5 @@ export default class HighScores {
         this.input.focus();
     }
 }
+
 

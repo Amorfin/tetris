@@ -1,14 +1,14 @@
-import Utils        from "../utils/Utils.js";
+﻿import Utils        from "../utils/Utils.js";
 
 
 
 /**
- * Tetris Board
+ * Neon Blocks Board
  */
 export default class Board {
 
     /**
-     * Tetris Board constructor
+     * Neon Blocks Board constructor
      * @param {Number}   tetriminoSize
      * @param {Function} onWindEnd
      */
@@ -254,3 +254,4 @@ export default class Board {
         this.winkElem.innerHTML  = "";
     }
 }
+
