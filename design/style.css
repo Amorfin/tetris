@@ -224,10 +224,10 @@ a:hover {
 .levels {
     display: none;
     position: absolute;
-    top: calc(var(--header-h) + 0.6em);
-    left: 0.6em;
-    right: 0.6em;
-    bottom: 0.6em;
+    top: calc(var(--header-h) + 0.2em);
+    left: 0.2em;
+    right: 0.2em;
+    bottom: 0.2em;
     background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
     border: 0.16em solid var(--edge);
     box-shadow: 0 0 0.6em rgba(56, 242, 194, 0.15);
@@ -235,9 +235,9 @@ a:hover {
     color: var(--ink-soft);
     font-size: 1.7em;
     line-height: 1.15em;
-    padding: 0.6em 0.6em 0.8em;
+    padding: 0.4em 0.4em 0.6em;
     letter-spacing: 0.03em;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -298,6 +298,8 @@ a:hover {
         gap: 0.6em;
         margin-top: 0.4em;
         width: 100%;
+        padding: 0 0.2em;
+        box-sizing: border-box;
     }
     .pause {
         position: absolute;
