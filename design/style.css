@@ -224,10 +224,10 @@ a:hover {
 .levels {
     display: none;
     position: absolute;
-    top: calc(var(--header-h) + 0.8em);
-    left: var(--panel-pad);
-    right: var(--panel-pad);
-    bottom: var(--panel-pad);
+    top: calc(var(--header-h) + 0.6em);
+    left: 0.6em;
+    right: 0.6em;
+    bottom: 0.6em;
     background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
     border: 0.16em solid var(--edge);
     box-shadow: 0 0 0.6em rgba(56, 242, 194, 0.15);
@@ -297,6 +297,7 @@ a:hover {
         align-items: center;
         gap: 0.6em;
         margin-top: 0.4em;
+        width: 100%;
     }
     .pause {
         position: absolute;
@@ -320,14 +321,17 @@ a:hover {
 .pause  li {
     list-style-type: none;
     padding: 0;
+    width: 100%;
 }
     .levels a {
-        display: inline-block;
+        display: block;
+        width: 100%;
         padding: 0.18em 0.8em;
         background: rgba(14, 20, 34, 0.9);
         border: 0.14em solid var(--edge);
         border-radius: 0.4em;
         box-shadow: inset 0 0 0.4em rgba(56, 242, 194, 0.12);
+        box-sizing: border-box;
     }
     .levels li:nth-child(2) a,
     .levels li:nth-child(3) a {
@@ -651,7 +655,7 @@ a:hover {
  */
 .audio {
     position: relative;
-    margin-top: auto;
+    margin-top: 0.6em;
     align-self: flex-start;
     left: 0;
     cursor: pointer;
