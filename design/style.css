@@ -224,7 +224,7 @@ a:hover {
 .levels {
     display: none;
     position: absolute;
-    top: var(--header-h);
+    top: calc(var(--header-h) - 0.6em);
     left: 0;
     right: 0;
     bottom: 0;
