@@ -560,11 +560,14 @@ a:hover {
     height: auto;
     font-size: 2em;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
 }
-.next  { min-height: 4.6em; }
-.level { min-height: 3.4em; }
-.score { min-height: 3.4em; }
-.lines { min-height: 3.4em; }
+.next  { min-height: 6.2em; }
+.level { min-height: 3.6em; }
+.score { min-height: 3.6em; }
+.lines { min-height: 3.6em; flex: 1 1 auto; }
 
     .content {
         position: relative;
@@ -582,14 +585,17 @@ a:hover {
         min-height: 2.1em;
     }
     .next .content {
-        min-height: 4.2em;
+        min-height: 4.8em;
         justify-content: center;
         padding: 0.2em 0.2em;
+    }
+    .lines .content {
+        flex: 1 1 auto;
     }
     .title {
         position: relative;
         margin: 0 0.4em;
-        padding: 0.12em 0.4em;
+        padding: 0.18em 0.4em;
         color: #e8f0ff;
         line-height: 1.1em;
         letter-spacing: 0.02em;
